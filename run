@@ -12,4 +12,4 @@ cat ./config/filebeat-$RUN.yml | sed s,{{ROOT}},$ROOT,i | tee ./config/rendered-
 
 echo "Starting the test for $RUN at $(date)"
 $FILEBEAT_CMD run -e -c $ROOT/config/rendered-filebeat-$RUN.yml 2> output-$RUN.json
-$ROOT/result $RUN
+$ROOT/result $RUN | tee result-$RUN.json
