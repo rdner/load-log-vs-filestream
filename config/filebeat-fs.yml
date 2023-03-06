@@ -1,0 +1,14 @@
+filebeat.inputs:
+  - type: filestream
+    id: my-filestream-id
+    enabled: true
+    paths:
+      - "{{ROOT}}/logs/file*.log"
+path.data: "{{ROOT}}/data-fs"
+# logging:
+#   level: debug
+output.file:
+  rotate_every_kb: 10485760 # 10GB
+  path: "{{ROOT}}/out/fs"
+  filename: output.json
+

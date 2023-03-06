@@ -1,0 +1,10 @@
+#!/bin/bash
+
+for i in $(seq 1 $1)
+do
+	filename="file$i.log"
+	for j in $(seq 1 $2)
+	do
+  	echo "file${i}_message${j}" >> $filename
+	done
+done

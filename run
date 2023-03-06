@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -e
+
+ROOT=$(pwd)
+FILEBEAT_CMD="${FILEBEAT_CMD:=./bin/filebeat}"
+RUN=$1
+
+echo "Rendering the configuration..."
+
+cat ./config/filebeat-$RUN.yml | sed s,{{ROOT}},$ROOT,i | tee ./config/rendered-filebeat-$RUN.yml
+
+echo "Starting the test for $RUN at $(date)"
+$FILEBEAT_CMD run -e -c $ROOT/config/rendered-filebeat-$RUN.yml 2> output-$RUN.json
+$ROOT/result $RUN

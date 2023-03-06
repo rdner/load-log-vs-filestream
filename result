@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -e
+
+RUN=$1
+
+START_TS=$(cat output-$RUN.json | head -n 1 | jq '.["@timestamp"]')
+END_TS=$(tail -n 1 out/$RUN/output*.ndjson | jq '.["@timestamp"]')
+BYTES=$(cat out/$RUN/output*.ndjson | wc -c)
+LINES=$(cat out/$RUN/output*.ndjson | wc -l)
+echo "{\"run\": \"$RUN\", \"start\": $START_TS, \"end\": $END_TS, \"bytes\": $BYTES, \"lines\": $LINES}" | jq .
